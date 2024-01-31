@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 //                    }
                     startLockTask()
                     initWebview()
-                    hideNavigationBar()
+                    //hideNavigationBar()
                 }
             }
         }
@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
 
         webView.webViewClient = WebViewClient()
 
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         else {
             startLockTask()
             initWebview()
-            hideNavigationBar()
+            //hideNavigationBar()
         }
 
 
@@ -122,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val handler = Handler(Looper.getMainLooper())
-    private val reloadIntervalMillis = 10 * 60 * 1000 // 5 minutes in milliseconds
+    private val reloadIntervalMillis = 10 * 60 * 1000 // 10 minutes in milliseconds
 
 
     private val reloadRunnable = object : Runnable {
