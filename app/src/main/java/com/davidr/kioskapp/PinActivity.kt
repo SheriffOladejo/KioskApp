@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -16,8 +17,7 @@ import com.ozcanalasalvar.otp_view.view.OtpView
 
 class PinActivity : AppCompatActivity() {
 
-    private lateinit var url: String
-    private lateinit var url_field: EditText
+    private var url: String = "https://www.google.com"
 
     private fun checkPermission() {
         // Check if the permission is not granted
@@ -57,33 +57,46 @@ class PinActivity : AppCompatActivity() {
 
         checkPermission()
 
-        url_field = findViewById(R.id.url)
+//        val optView = findViewById<OtpView>(R.id.otpView)
+//        optView.apply {
+//            setActiveColor(getColor(R.color.white))
+//            setPassiveColor(getColor(R.color.purple_200))
+//            setDigits(4)
+//            setAutoFocusEnabled(false)
+//            setErrorEnabled(false)
+//            setTextColor(getColor(R.color.purple_200))
+//            setTextSize(22)
+//            setTextChangeListener(object : OtpView.ChangeListener {
+//                override fun onTextChange(value: String, completed: Boolean) {
+//                    if (completed && value.equals("4321")) {
+//                        val activityIntent = Intent(context, MainActivity::class.java)
+//                        context.startActivity(activityIntent)
+//
+//                        finish()
+//                    }
+//                    else if (completed && !value.equals("4321")) {
+//                        Toast.makeText(context, "Incorrect pin", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            })
+//        }
 
-        val optView = findViewById<OtpView>(R.id.otpView)
-        optView.apply {
-            setActiveColor(getColor(R.color.white))
-            setPassiveColor(getColor(R.color.purple_200))
-            setDigits(4)
-            setAutoFocusEnabled(false)
-            setErrorEnabled(false)
-            setTextColor(getColor(R.color.purple_200))
-            setTextSize(22)
-            setTextChangeListener(object : OtpView.ChangeListener {
-                override fun onTextChange(value: String, completed: Boolean) {
-                    if (completed && value.equals("4321")) {
-                        val activityIntent = Intent(context, MainActivity::class.java)
+        val goTo = findViewById<Button>(R.id.goTo)
+        val usernameText = findViewById<EditText>(R.id.username)
+        val passwordText = findViewById<EditText>(R.id.password)
+        val urlText = findViewById<EditText>(R.id.url)
+        urlText.setText("https://www.innplay.app/tv/MostrarTablet/4220")
+        goTo.setOnClickListener{
+            val activityIntent = Intent(this@PinActivity, MainActivity::class.java)
+            val username = usernameText.text.toString()
+            val password = passwordText.text.toString()
+            val url = urlText.text.toString()
+            activityIntent.putExtra("username", username)
+            activityIntent.putExtra("password", password)
+            activityIntent.putExtra("url", url)
+            this@PinActivity.startActivity(activityIntent)
 
-                        url = url_field.text.toString()
-                        activityIntent.putExtra("url", url)
-                        context.startActivity(activityIntent)
-
-                        finish()
-                    }
-                    else if (completed && !value.equals("4321")) {
-                        Toast.makeText(context, "Incorrect pin", Toast.LENGTH_LONG).show();
-                    }
-                }
-            })
+            finish()
         }
 
     }
